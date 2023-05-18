@@ -12,70 +12,71 @@ public class Main {
         int key = 5;
         ////
 
-        int remainderOfKey = key % Constants.ALPHABET_ROMAN_UPPER_CASE.length;
+        // КОДИРОВАНИЕ
+        if (command.equals("[ENCRYPT]")) {
+            int remainderOfKey = key % Constants.ALPHABET_ROMAN_UPPER_CASE.length;
+            Path inputFile = Path.of(filePath);
+            try {
+                String inputFileToString = Files.readString(inputFile);
+                char[] inputFileToCharArray = inputFileToString.toCharArray();
 
-        Path inputFile = Path.of(filePath);
-        try {
-            String inputFileToString = Files.readString(inputFile);
-            char[] inputFileToCharArray = inputFileToString.toCharArray();
+                for (int i = 0; i < inputFileToCharArray.length; i++) {
+                    if (Character.isLetter(inputFileToCharArray[i])) {
+                        if (Character.isUpperCase(inputFileToCharArray[i])) {
 
-            for (int i = 0; i < inputFileToCharArray.length; i++) {
-                if (Character.isLetter(inputFileToCharArray[i])) {
-                    if (Character.isUpperCase(inputFileToCharArray[i])) {
-
-                        for (int j = 0; j < Constants.ALPHABET_ROMAN_UPPER_CASE.length; j++) {
-                            if (inputFileToCharArray[i] == Constants.ALPHABET_ROMAN_UPPER_CASE[j]) {
-                                if ((j + remainderOfKey) < Constants.ALPHABET_ROMAN_UPPER_CASE.length) {
-                                    inputFileToCharArray[i] = Constants.ALPHABET_ROMAN_UPPER_CASE[j + remainderOfKey];
-                                    break;
-                                } else {
-                                    int remainderNumber = j + remainderOfKey - Constants.ALPHABET_ROMAN_UPPER_CASE.length;
-                                    inputFileToCharArray[i] = Constants.ALPHABET_ROMAN_UPPER_CASE[remainderNumber];
-                                    break;
+                            for (int j = 0; j < Constants.ALPHABET_ROMAN_UPPER_CASE.length; j++) {
+                                if (inputFileToCharArray[i] == Constants.ALPHABET_ROMAN_UPPER_CASE[j]) {
+                                    if ((j + remainderOfKey) < Constants.ALPHABET_ROMAN_UPPER_CASE.length) {
+                                        inputFileToCharArray[i] = Constants.ALPHABET_ROMAN_UPPER_CASE[j + remainderOfKey];
+                                        break;
+                                    } else {
+                                        int remainderNumber = j + remainderOfKey - Constants.ALPHABET_ROMAN_UPPER_CASE.length;
+                                        inputFileToCharArray[i] = Constants.ALPHABET_ROMAN_UPPER_CASE[remainderNumber];
+                                        break;
+                                    }
                                 }
                             }
-                        }
-                    } else if (Character.isLowerCase(inputFileToCharArray[i])) {
-                        for (int j = 0; j < Constants.ALPHABET_ROMAN_LOWER_CASE.length; j++) {
-                            if (inputFileToCharArray[i] == Constants.ALPHABET_ROMAN_LOWER_CASE[j]) {
-                                if ((j + remainderOfKey) < Constants.ALPHABET_ROMAN_LOWER_CASE.length) {
-                                    inputFileToCharArray[i] = Constants.ALPHABET_ROMAN_LOWER_CASE[j + remainderOfKey];
-                                    break;
-                                } else {
-                                    int remainderNumber = j + remainderOfKey - Constants.ALPHABET_ROMAN_LOWER_CASE.length;
-                                    inputFileToCharArray[i] = Constants.ALPHABET_ROMAN_LOWER_CASE[remainderNumber];
-                                    break;
+                        } else if (Character.isLowerCase(inputFileToCharArray[i])) {
+                            for (int j = 0; j < Constants.ALPHABET_ROMAN_LOWER_CASE.length; j++) {
+                                if (inputFileToCharArray[i] == Constants.ALPHABET_ROMAN_LOWER_CASE[j]) {
+                                    if ((j + remainderOfKey) < Constants.ALPHABET_ROMAN_LOWER_CASE.length) {
+                                        inputFileToCharArray[i] = Constants.ALPHABET_ROMAN_LOWER_CASE[j + remainderOfKey];
+                                        break;
+                                    } else {
+                                        int remainderNumber = j + remainderOfKey - Constants.ALPHABET_ROMAN_LOWER_CASE.length;
+                                        inputFileToCharArray[i] = Constants.ALPHABET_ROMAN_LOWER_CASE[remainderNumber];
+                                        break;
+                                    }
                                 }
                             }
                         }
                     }
                 }
-
+                String outputFileToString = new String(inputFileToCharArray);
+                Path outputFile = Paths.get(Encrypt.getNewFileName(filePath, command));
+                if (Files.notExists(outputFile)) {
+                    Files.createFile(outputFile);
+                }
+                Files.writeString(outputFile, outputFileToString);
+            } catch (IOException ioe) {
+                ioe.printStackTrace();
             }
-
-            String outputFileToString = new String(inputFileToCharArray);
-
-
-            Path outputFile = Paths.get(getNewFileName(filePath,command));
-            if (Files.notExists(outputFile)) {
-                Files.createFile(outputFile);
-            }
-            Files.writeString(outputFile,outputFileToString);
-
-
-
-        } catch (IOException ioe) {
-            ioe.printStackTrace();
         }
 
+
+        // ДЕКОДИНГ
+        if (command.equals("[DECRYPT]")) {
+
+        }
+
+
+
+
+
+
+
+
+
     }
-
-
-    //Полцчаем название для новго файла. (старое название + argumentOne)
-    public static String getNewFileName(String oldFileName, String plasPartNewName) {
-        int dotIndex = oldFileName.lastIndexOf(".");
-        return oldFileName.substring(0, dotIndex) + plasPartNewName + oldFileName.substring(dotIndex);
-    }
-
 }
 
