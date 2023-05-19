@@ -1,9 +1,22 @@
 package arguments;
 
+import constants.Constants;
+
 public class Arguments {
     private String COMMAND;
     private String FILEPATH;
     private int KEY = 0;
+    private int RemainderOFKey;
+
+    public int getRemainderOFKey() {
+        return RemainderOFKey;
+    }
+
+    public void setRemainderOFKey(int remainderOFKey) {
+        this.RemainderOFKey = remainderOFKey;
+    }
+
+
 
     public String getCOMMAND() {
         return COMMAND;
@@ -38,8 +51,8 @@ public class Arguments {
 
             if (args[0].equals("ENCRYPT") || args[0].equals("DECRYPT")) {
                 setKEY(Integer.parseInt(args[2]));
+                setRemainderOFKey(getKEY() % Constants.ALPHABET_ROMAN_UPPER_CASE.length);
             }
-
         }
 
     }
@@ -56,7 +69,5 @@ public class Arguments {
             System.out.println("Command error. Please enter the command: ENCRYPT or DECRYPT or BRUTE_FORCE");
             return null;
         }
-
     }
-
 }
