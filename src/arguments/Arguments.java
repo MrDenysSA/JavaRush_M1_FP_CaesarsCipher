@@ -6,7 +6,7 @@ public class Arguments {
     private String COMMAND;
     private String FILEPATH;
     private int KEY = 0;
-    private int RemainderOFKey;
+    private int RemainderOFKey = 0;
 
     public int getRemainderOFKey() {
         return RemainderOFKey;
@@ -15,8 +15,6 @@ public class Arguments {
     public void setRemainderOFKey(int remainderOFKey) {
         this.RemainderOFKey = remainderOFKey;
     }
-
-
 
     public String getCOMMAND() {
         return COMMAND;
@@ -42,29 +40,24 @@ public class Arguments {
         this.KEY = KEY;
     }
 
-
     public Arguments(String[] args) {
-
         for (String arg : args) {
             setCOMMAND(CommandValidation(args[0]));
             setFILEPATH(args[1]);
-
             if (args[0].equals("ENCRYPT") || args[0].equals("DECRYPT")) {
                 setKEY(Integer.parseInt(args[2]));
                 setRemainderOFKey(getKEY() % Constants.ALPHABET_ROMAN_UPPER_CASE.length);
             }
         }
-
     }
 
     private String CommandValidation(String command) {
-        String cmmandValidation;
         if (command.equals("ENCRYPT")) {
-            return cmmandValidation = "[ENCRYPT]";
+            return "[ENCRYPT]";
         } else if (command.equals("DECRYPT")) {
-            return cmmandValidation = "[DECRYPT]";
+            return "[DECRYPT]";
         } else if (command.equals("BRUTE_FORCE")) {
-            return cmmandValidation = "[BRUTE_FORCE]";
+            return "[BRUTE_FORCE]";
         } else {
             System.out.println("Command error. Please enter the command: ENCRYPT or DECRYPT or BRUTE_FORCE");
             return null;

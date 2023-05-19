@@ -1,6 +1,7 @@
 import IO.InputOutput;
 import arguments.Arguments;
 import constants.Constants;
+import encryption.Encryption;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -9,21 +10,14 @@ import java.nio.file.Paths;
 
 public class Main {
     public static void main(String[] args) {
-        Arguments arguments = new Arguments(args);
-
 //  ENCRYPT       /Users/denyssyrotiuk/Документи на MacMini/Java/IntelliJ IDEA CT/CaesarsCipher/src/files/Hamlet.txt
 //  DECRYPT       /Users/denyssyrotiuk/Документи на MacMini/Java/IntelliJ IDEA CT/CaesarsCipher/src/files/Hamlet[ENCRYPT].txt
+        Arguments arguments = new Arguments(args); // работа с аргументами
+        Encryption encryption = new Encryption(arguments); //шифровка РАБОТАЕТ
 
-
-
-        // для дешифровки
-        if (arguments.getCOMMAND().equals("[DECRYPT]")) {
-            arguments.setRemainderOFKey(Constants.ALPHABET_ROMAN_UPPER_CASE.length - arguments.getKEY());
-        }
 
         // NIO
-        Path inputFile = Path.of(arguments.getFILEPATH());  // Открывем файл
-
+        Path inputFile = Path.of(arguments.getFILEPATH());  // Открывем файл (НУЖНО ПЕРЕНЕСТИ)
 
         try {
             String inputFileToString = Files.readString(inputFile);
