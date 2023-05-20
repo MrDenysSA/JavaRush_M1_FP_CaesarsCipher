@@ -42,31 +42,22 @@ public class Arguments {
     }
 
     public Arguments(String[] args) {
-
         if (args.length == 0) {
-
             ConsoleInput argsScanner = new ConsoleInput();
-            for (String arg : argsScanner.argsConsole) {
-                setCOMMAND(argsScanner.argsConsole[0]);
-                setFILEPATH(argsScanner.argsConsole[1]);
-                if (argsScanner.argsConsole[0].equals("[ENCRYPT]") || argsScanner.argsConsole[0].equals("[DECRYPT]")) {
-                    setKEY(Integer.parseInt(argsScanner.argsConsole[2]));
-                    setRemainderOFKey(getKEY() % Constants.ALPHABET_ROMAN_UPPER_CASE.length);
-                }
+            setCOMMAND(argsScanner.argsConsole[0]);
+            setFILEPATH(argsScanner.argsConsole[1]);
+            if (argsScanner.argsConsole[0].equals("[ENCRYPT]") || argsScanner.argsConsole[0].equals("[DECRYPT]")) {
+                setKEY(Integer.parseInt(argsScanner.argsConsole[2]));
+                setRemainderOFKey(getKEY() % Constants.ALPHABET_ROMAN_UPPER_CASE.length);
             }
-
-
         } else {
-            for (String arg : args) {
-                setCOMMAND(CommandValidation(args[0]));
-                setFILEPATH(args[1]);
-                if (args[0].equals("ENCRYPT") || args[0].equals("DECRYPT")) {
-                    setKEY(Integer.parseInt(args[2]));
-                    setRemainderOFKey(getKEY() % Constants.ALPHABET_ROMAN_UPPER_CASE.length);
-                }
+            setCOMMAND(CommandValidation(args[0]));
+            setFILEPATH(args[1]);
+            if (args[0].equals("ENCRYPT") || args[0].equals("DECRYPT")) {
+                setKEY(Integer.parseInt(args[2]));
+                setRemainderOFKey(getKEY() % Constants.ALPHABET_ROMAN_UPPER_CASE.length);
             }
         }
-
     }
 
     private String CommandValidation(String command) {

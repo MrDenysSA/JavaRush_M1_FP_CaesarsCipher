@@ -7,6 +7,7 @@ public class ConsoleInput {
 
     public ConsoleInput() {
         Scanner scanner = new Scanner(System.in);
+
         //reed command
         System.out.println("What do you want to do with text?\n" +
                 "Write one of the commands and press enter.");
