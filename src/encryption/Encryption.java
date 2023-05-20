@@ -1,6 +1,7 @@
 package encryption;
 
 import arguments.Arguments;
+import brutforse.Brut;
 import constants.Constants;
 
 import java.io.IOException;
@@ -13,7 +14,14 @@ public class Encryption {
     public String outputFileToString;
 
     public Encryption(Arguments arguments) {
-        if (arguments.getCOMMAND().equals("[DECRYPT]")) {
+        if (arguments.getCOMMAND().equals("[BRUTE_FORCE]")) {
+            // ВЫЗЫВАЕМ БРУТА
+            // Нужно получить ключ для дешефровки и использеуем сценарий Дешефровки
+            arguments.setKEY(Brut.Brut(arguments.getFILEPATH()));
+
+        }
+
+        if (arguments.getCOMMAND().equals("[DECRYPT]") || arguments.getCOMMAND().equals("[BRUTE_FORCE]")) {
             arguments.setRemainderOFKey(Constants.ALPHABET_ROMAN_UPPER_CASE.length - (arguments.getKEY() % Constants.ALPHABET_ROMAN_UPPER_CASE.length));
         }
 
