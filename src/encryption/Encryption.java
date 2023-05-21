@@ -15,22 +15,15 @@ public class Encryption {
 
     public Encryption(Arguments arguments) {
         if (arguments.getCOMMAND().equals("[BRUTE_FORCE]")) {
-            // ВЫЗЫВАЕМ БРУТА
-            // Нужно получить ключ для дешефровки и использеуем сценарий Дешефровки
             arguments.setKEY(Brut.Brut(arguments.getFILEPATH()));
-
         }
-
         if (arguments.getCOMMAND().equals("[DECRYPT]") || arguments.getCOMMAND().equals("[BRUTE_FORCE]")) {
             arguments.setRemainderOFKey(Constants.ALPHABET_ROMAN_UPPER_CASE.length - (arguments.getKEY() % Constants.ALPHABET_ROMAN_UPPER_CASE.length));
         }
-
         Path inputFile = Path.of(arguments.getFILEPATH());
-
         try {
             String inputFileToString = Files.readString(inputFile);
             char[] inputFileToCharArray = inputFileToString.toCharArray();
-
             for (int i = 0; i < inputFileToCharArray.length; i++) {
                 if (Character.isLetter(inputFileToCharArray[i])) {
                     if (Character.isUpperCase(inputFileToCharArray[i])) {
@@ -64,13 +57,11 @@ public class Encryption {
                 }
             }
             this.outputFileToString = new String(inputFileToCharArray);
-
             Path outputFile = Paths.get(getNewFileName(arguments.getFILEPATH(), arguments.getCOMMAND()));
             if (Files.notExists(outputFile)) {
                 Files.createFile(outputFile);
             }
             Files.writeString(outputFile, outputFileToString);
-
         } catch (IOException ioe) {
             ioe.printStackTrace();
         }

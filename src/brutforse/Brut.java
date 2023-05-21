@@ -8,19 +8,19 @@ import java.nio.file.Path;
 
 public class Brut {
     public static int Brut(String filePath) {
-        Path inputFile = Path.of(filePath);    // Получаем файл шифрованый
+        Path inputFile = Path.of(filePath);
         try {
-            String inputFileToString = Files.readString(inputFile).toLowerCase();     // перефодим файл в строку с нижним регистром
+            String inputFileToString = Files.readString(inputFile).toLowerCase();
             int maxcoincidences = 0;
             int keyRezult = 0;
             int count = 0;
             int step = 1;
             while (step < 26) {
-                char[] inputFileToCharArray = inputFileToString.toCharArray();    // переводим в масив символов
+                char[] inputFileToCharArray = inputFileToString.toCharArray();
                 for (int i = 0; i < inputFileToCharArray.length; i++) {
-                    if (Character.isLetter(inputFileToCharArray[i])) {          // проверяем только буквы, что бы зря не крутить цикл
+                    if (Character.isLetter(inputFileToCharArray[i])) {
                         for (int j = 0; j < Constants.ALPHABET_ROMAN_LOWER_CASE.length; j++) {
-                            if (inputFileToCharArray[i] == Constants.ALPHABET_ROMAN_LOWER_CASE[j]) {  // сопадение букв с масива и алфавита
+                            if (inputFileToCharArray[i] == Constants.ALPHABET_ROMAN_LOWER_CASE[j]) {
                                 if ((j + step) < Constants.ALPHABET_ROMAN_LOWER_CASE.length) {
                                     inputFileToCharArray[i] = Constants.ALPHABET_ROMAN_LOWER_CASE[j + step];
                                 } else {
